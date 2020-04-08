@@ -1,0 +1,16 @@
+FROM node:lts-buster-slim AS build-env
+WORKDIR /src
+
+# copy src files into build container
+COPY todo-frontend/package*.json ./
+
+RUN npm install --unsafe-perm
+
+COPY todo-frontend .
+
+RUN npm run build -- --prod --output-path /dist --base-href /
+
+FROM nginx:1.17-alpine
+RUN rm -rf /usr/share/nginx/html/*
+COPY nginx-default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-env /dist /usr/share/nginx/html

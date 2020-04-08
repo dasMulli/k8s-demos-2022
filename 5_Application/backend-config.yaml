@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-config
+  labels:
+    app: todo
+    tier: backend
+data:
+  "ConnectionStrings__ToDoDatabase": "Host=demo-database;Port=5432;Username=postgres;Password=demo-password"

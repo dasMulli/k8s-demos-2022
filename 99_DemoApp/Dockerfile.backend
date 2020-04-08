@@ -1,0 +1,25 @@
+# Follows VS conventions for possible use with VS container tools fast build (see https://aka.ms/containerfastmode)
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+WORKDIR /src
+
+COPY todo-backend/*.csproj .
+
+RUN dotnet restore
+
+COPY todo-backend .
+
+# Compile whole solution in each Dockerfile to utilize build cache
+RUN dotnet build -c Release --no-restore
+
+FROM build AS publish
+RUN dotnet publish -c Release --no-build -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "DotNetToDo.dll","-d"]

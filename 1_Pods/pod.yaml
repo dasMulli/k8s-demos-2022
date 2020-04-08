@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+    - name: demo-container
+      image: busybox
+      command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 10']
+      resources:
+        requests:
+          cpu: 100m
+          memory: 32Mi
+        limits:
+          cpu: 200m
+          memory: 64Mi
+  

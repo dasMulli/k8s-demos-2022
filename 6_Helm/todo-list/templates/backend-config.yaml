@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "todo-list.fullname" . }}-config
+  labels:
+    {{- include "todo-list.labels" . | nindent 4 }}
+    tier: backend
+data:
+  "ConnectionStrings__ToDoDatabase": "Host={{ .Release.Name }}-postgresql;Port={{.Values.postgresql.service.port}};Username={{.Values.postgresql.postgresqlUsername}};Password={{.Values.postgresql.postgresqlPassword}}"

@@ -1,0 +1,31 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: martin.andreas.ullrich@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource used to store the account's private key.
+      name: "dasmulli-issuer-account-key"
+    solvers:
+    - dns01:
+        azureDNS:
+          clientID: 1028f9b6-537f-4630-b9e4-ffa0d0bf09f0
+          clientSecretSecretRef:
+          # The following is the secret we created in Kubernetes. Issuer will use this to present challenge to Azure DNS.
+            name: azuredns-config
+            key: client-secret
+          subscriptionID: a56eee54-a519-419c-8d21-a20d4e5b9c04
+          tenantID: 4925c6ef-421e-417d-a9ce-4b559466d6ff
+          resourceGroupName: MartinUllrichDomains
+          hostedZoneName: dasmulli.at
+          # Azure Cloud Environment, default to AzurePublicCloud
+          environment: AzurePublicCloud
+      selector:
+        dnsZones:
+        - 'dasmulli.at'

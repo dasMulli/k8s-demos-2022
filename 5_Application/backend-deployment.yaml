@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-backend
+  labels:
+    app: todo
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+      app: todo
+  template:
+    metadata:
+      labels:
+        tier: backend
+        app: todo
+    spec:
+      containers:
+        - name: todo-backend
+          image: dasmullidemo.azurecr.io/demo-backend:2
+          env:
+            - name: "kestrel__endpoints__http__url"
+              value: "http://0.0.0.0:80"
+          envFrom:
+            - configMapRef:
+                name: demo-config
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 400m
+              memory: 150Mi
+            limits:
+              cpu: 800m
+              memory: 512Mi

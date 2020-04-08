@@ -1,0 +1,53 @@
+questions:
+- variable: ingress.enabled
+  default: true
+  description: "Expose ToDo App using Layer 7 Load Balancer (Ingress)"
+  type: boolean
+  label: "Expose ToDo App using Layer 7 Load Balancer (Ingress)"
+  required: true
+  group: "Services and Load Balancing"
+  show_subquestion_if: true
+  subquestions:
+  - variable: ingress.hosts[0].host
+    default: "hostname.example"
+    label: Hostname
+    description: "Hostname to ToDo App"
+    required: true
+    type: hostname
+
+- variable: ingress.tls.enabled
+  description: "Use cert-manager TLS for ToDo App Ingress"
+  label: "Cert-manager TLS for ToDo App"
+  group: "Services and Load Balancing"
+  type: boolean
+  default: false
+  required: false
+  show_if: 'ingress.enabled=true'
+  show_subquestion_if: true
+  subquestions:
+  - variable: ingress.tls.clusterIssuer
+    type: string
+    default: 'letsencrypt'
+    label: "ToDo App TLS Cluster Issuer"
+    description: "ToDo App TLS Cluster Issuer name to use"
+    required: false
+  - variable: ingress.tls.secretName
+    type: string
+    default: 'todo-app-secret'
+    label: "ToDo App TLS secret name"
+    description: "ToDo App TLS secret name to use"
+    required: false
+  - variable: ingress.tls.hosts[0]
+    type: string
+    default: '*.example'
+    label: "Hostname to use for certificate"
+    description: "Hostname to use for certificate (e.g. wildcards)"
+    required: false
+
+- variable: postgresql.persistence.storageClass
+  group: "PostgreSQL"
+  default: "default"
+  label: PostgreSQL Storage Class Name
+  description: "Storage Class Name to use for persistent storage. On Azure, you may want to set this to 'managed-premium'."
+  required: false
+  type: storageclass

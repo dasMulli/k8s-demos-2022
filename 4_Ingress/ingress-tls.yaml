@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  rules:
+  - host: democluster.dasmulli.at
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-frontend
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - democluster.dasmulli.at
+    secretName: democluster-tls

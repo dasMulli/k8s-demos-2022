@@ -1,0 +1,34 @@
+<div class="container" *ngIf="isLoggedIn">
+  <div class="row">
+    <h1 class="mb-3 mt-5 col">New TODO Item</h1>
+  </div>
+  <form [formGroup]="toDoForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <label for="birthDate">TODO text</label>
+        <input type="text" class="form-control" id="todoText" name="todoText" placeholder="What to do?" value=""
+          formControlName="text">
+        <div *ngIf="text?.invalid && (text?.dirty || text?.touched)" class="alert alert-danger">
+          <div *ngIf="text?.errors['required']">
+            Text is required
+          </div>
+          <div *ngIf="text?.errors['minlength']">
+              Text must be at least 10 characters long.
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="completeUntil">Complete until</label>
+        <input type="date" class="form-control" id="completeUntil" name="completeUntil" value=""
+          formControlName="completeUntil" appUseValueAsDate>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="toDoForm.invalid">Add TODO item</button>
+      </div>
+    </div>
+  </form>
+</div>

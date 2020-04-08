@@ -1,0 +1,45 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "todo-list.fullname" . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "todo-list.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.ingress.annotations }}
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.ingress.tls.clusterIssuer }}
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.tls.clusterIssuer }}
+    {{- end }}
+spec:
+{{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+      {{- range .Values.ingress.tls.hosts }}
+        - {{ . | quote }}
+      {{- end }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+{{- end }}
+  rules:
+  {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullName }}-frontend
+                port:
+                  number: 80
+          - path: /api/
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullName }}-backend
+                port:
+                  number: 80
+  {{- end }}
+{{- end }}
