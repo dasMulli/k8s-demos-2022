@@ -48,18 +48,6 @@ ingress:
     hosts:
       - todo-app.democluster.dasmulli.at
 
-# ingress:
-#   enabled: true
-#   annotations: {}
-#   hosts:
-#     - host: todo-app.democluster.dasmulli.at
-#   tls:
-#     enabled: false
-#     clusterIssuer: 'letsencrypt'
-#     secretName: 'democluster-wildcard'
-#     hosts:
-#     - '*.democluster.dasmulli.at'
-
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
