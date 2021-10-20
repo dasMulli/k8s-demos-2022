@@ -1,0 +1,8 @@
+ingress:
+  enabled: true
+  # hosts:
+  #   - host: todo-app.democluster.dasmulli.at
+  tls:
+    enabled: true
+    # hosts:
+    #   - todo-app.democluster.dasmulli.at
