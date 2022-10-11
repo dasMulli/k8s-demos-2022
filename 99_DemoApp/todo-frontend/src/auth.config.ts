@@ -4,7 +4,7 @@ export function createAuthConfig(callbackUrl: string): AuthConfig {
   return {
     clientId: 'bif4spa',
     // Url of the Identity Provider
-    issuer: 'http://localhost:5000',
+    issuer: 'https://bif4-identity.azurewebsites.net',
     // The SPA's id. The SPA is registered with this id at the auth-server clientId: 'bif4ss2018ue5',
     redirectUri: callbackUrl,
     postLogoutRedirectUri: callbackUrl,
