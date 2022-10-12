@@ -1,0 +1,11 @@
+wordpressUsername: ndc
+existingSecret: wordpress-pw
+service:
+  type: ClusterIP # Default was 'LoadBalancer'
+ingress:
+  enabled: true
+  hostname: wordpress.democluster.dasmulli.at
+  ingressClassName: nginx
+  tls: true
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
