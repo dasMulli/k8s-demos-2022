@@ -133,3 +133,5 @@ node_modules
 [Ll]ogs/
 
 healthchecksdb
+
+out/
