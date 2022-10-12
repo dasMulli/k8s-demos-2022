@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: dasmullidemo.azurecr.io/demo-backend:2
+          image: dasmullidemo.azurecr.io/demo-backend:3.0.0
           env:
             - name: "kestrel__endpoints__http__url"
               value: "http://0.0.0.0:80"

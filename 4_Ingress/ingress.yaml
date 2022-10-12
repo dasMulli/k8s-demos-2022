@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: demo-ingress
 spec:
+  ingressClassName: nginx
   rules:
   - host: democluster.dasmulli.at
     http:

@@ -8,7 +8,7 @@ namespace DotNetToDo
 
         public string Text { get; set; }
 
-        public DateTime CompleteUntil { get; set; }
+        public DateTimeOffset CompleteUntil { get; set; }
 
         public string Name { get; set; }
 

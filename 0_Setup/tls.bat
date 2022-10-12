@@ -10,7 +10,4 @@ helm repo update
 helm install ^
   cert-manager jetstack/cert-manager ^
   --namespace cert-manager ^
-  --version v1.4.3 ^
-  --set installCRDs=true ^
-  --set ingressShim.defaultIssuerName=letsencrypt ^
-  --set ingressShim.defaultIssuerKind=ClusterIssuer
+  --set installCRDs=true

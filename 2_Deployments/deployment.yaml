@@ -4,8 +4,8 @@ metadata:
   name: demo-frontend
 spec:
   replicas: 2
-  strategy:
-    type: Recreate
+  # strategy:
+  #   type: Recreate
   selector:
     matchLabels:
       tier: frontend
